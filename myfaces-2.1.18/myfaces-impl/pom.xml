@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+        <groupId>org.apache.myfaces.core</groupId>
+        <artifactId>myfaces-core-project</artifactId>
+        <version>2.1.12-e2</version>
+        <relativePath>../myfaces-core-project/pom.xml</relativePath>
+    </parent>
+
+	<groupId>org.apache.myfaces.core</groupId>
+	<artifactId>myfaces-impl</artifactId>
+	<name>Apache MyFaces JSF-2.1 Core Impl</name>
+	<version>2.1.18-e13-SNAPSHOT</version>
+
+	<scm>
+        <connection>scm:hg:https://vno-hg.exigengroup.com/hg/eis-thirdparty</connection>
+        <developerConnection>scm:hg:https://vno-hg.exigengroup.com/hg/eis-thirdparty</developerConnection>
+        <url>https://vno-hg.exigengroup.com/hg/eis-thirdparty</url>
+    </scm>
+
+	<properties>
+		<gpg.skip>true</gpg.skip>
+		<checkstyle.skip>true</checkstyle.skip>
+        <myfaces.impl.version>2.1.18</myfaces.impl.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.myfaces.core</groupId>
+			<artifactId>myfaces-impl</artifactId>
+			<version>${myfaces.impl.version}</version>
+		</dependency>
+
+		<!-- myfaces-api -->
+		<dependency>
+			<groupId>org.apache.myfaces.core</groupId>
+			<artifactId>myfaces-api</artifactId>
+			<version>2.1.18</version>
+		</dependency>
+
+		<!-- This is included in myfaces-impl-shared, but in eclipse
+             it is not detected, so an easy workaround is include it
+             as an optional dependency -->
+        <dependency>
+            <groupId>org.apache.myfaces.core.internal</groupId>
+            <artifactId>myfaces-impl-shared-public</artifactId>
+            <optional>true</optional>
+            <version>2.1.18</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.myfaces.core.internal</groupId>
+            <artifactId>myfaces-impl-shared</artifactId>
+            <optional>true</optional>
+            <version>2.1.18</version>
+        </dependency>
+
+
+        <!-- Servlet 3.0 by default. Use the -Pee5 compile for servlet-2.5 -->
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-servlet_3.0_spec</artifactId>
+        </dependency>
+
+        <!-- JSP 2.1 -->
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jsp_2.1_spec</artifactId>
+        </dependency>
+
+        <!-- JSTL 1.2 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+
+        <!-- el 2.2 (javax.el.*) -->
+        <!--
+            NOTE that we are also compatible with el 1.0, but we need to use el 2.2 as
+            compile-dependency, because our ValueExpression wrappers need to support getValueReference().
+        -->
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+        </dependency>
+
+        <!-- bean-validation 1.0 (javax.validation.*) -->
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-validation_1.0_spec</artifactId>
+            <optional>true</optional> <!-- optional does not completely work in dependencyManagement (MNG-1630) -->
+        </dependency>
+
+        <!-- annotations 1.0 (javax.annotation.*) -->
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-annotation_1.0_spec</artifactId>
+        </dependency>
+
+        <!-- jpa 3.0 - needed in AllAnnotationLifecycleProvider -->
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-jpa_3.0_spec</artifactId>
+            <optional>true</optional> <!-- optional does not completely work in dependencyManagement (MNG-1630) -->
+        </dependency>
+
+        <!-- ejb 3.0 - needed in AllAnnotationLifecycleProvider -->
+        <dependency>
+            <groupId>org.apache.geronimo.specs</groupId>
+            <artifactId>geronimo-ejb_3.0_spec</artifactId>
+            <optional>true</optional> <!-- optional does not completely work in dependencyManagement (MNG-1630) -->
+        </dependency>
+
+        <!-- builder-annotations like @JSFWebConfigParam -->
+        <dependency>
+            <groupId>org.apache.myfaces.buildtools</groupId>
+            <artifactId>myfaces-builder-annotations</artifactId>
+        </dependency>
+
+        <!-- commons dependencies -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!-- tomcat 6.0.x support (LifecycleProvider) -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>catalina</artifactId>
+            <optional>true</optional> <!-- optional does not completely work in dependencyManagement (MNG-1630) -->
+        </dependency>
+
+        <!-- tomcat 7 support (LifecycleProvider) -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina</artifactId>
+            <optional>true</optional> <!-- optional does not completely work in dependencyManagement (MNG-1630) -->
+        </dependency>
+
+        <!-- Google guice support (GuiceResolver) -->
+        <dependency>
+            <groupId>com.google.code.guice</groupId>
+            <artifactId>guice</artifactId>
+            <optional>true</optional> <!-- optional does not completely work in dependencyManagement (MNG-1630) -->
+        </dependency>
+
+
+        <!-- TEST DEPENDENCIES -->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <classifier>jdk15</classifier>
+        </dependency>
+
+        <!-- test cases of myfaces-api -->
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+			<version>2.1.18</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.myfaces.test</groupId>
+            <artifactId>myfaces-test20</artifactId>
+        </dependency>
+
+        <!-- easymock -->
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymockclassextension</artifactId>
+        </dependency>
+
+        <!-- We need a real EL implementation for test ui:param tag,
+        because myfaces-test MockExpressionFactory is not designed to
+        handle VariableMapper stuff (see IncludeParamTestCase) -->
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>el-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>jasper-el</artifactId>
+        </dependency>
+	</dependencies>
+
+<!-- unpack the original artifact, compile the patched file(s), repack the artifact as -eN patch -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.5.1</version>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.apache.myfaces.core</groupId>
+									<artifactId>myfaces-impl</artifactId>
+									<version>${myfaces.impl.version}</version>
+									<type>jar</type>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>${project.build.directory}/classes</outputDirectory>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+						</configuration>
+					</execution>
+                    <execution>
+                        <id>unpack-sources</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.apache.myfaces.core</groupId>
+                                    <artifactId>myfaces-impl</artifactId>
+                                    <version>${myfaces.impl.version}</version>
+                                    <classifier>sources</classifier>
+                                    <overWrite>true</overWrite>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${project.build.directory}/merged_sources</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/merged_sources</outputDirectory>
+                            <overwrite>true</overwrite>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.sourceDirectory}</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.eisgroup.eis.maven</groupId>
+                <artifactId>eis-maven-source-dir-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>external-dir-jar</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <sourceRoot>${project.build.directory}/merged_sources/</sourceRoot>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<extensions>false</extensions>
+				<inherited>true</inherited>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

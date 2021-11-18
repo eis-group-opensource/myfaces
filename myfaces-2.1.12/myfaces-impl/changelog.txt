@@ -1,0 +1,2 @@
+Changes in 2.1.12-e9
+* Added _ClassByteCodeAnnotationFilter with MYFACES-3945 fix to support Java 11. This improves MyFaces search for annotations which was not compatible with Java 11 byte-code. [EISDEV-203804]
